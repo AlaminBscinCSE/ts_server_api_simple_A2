@@ -11,6 +11,6 @@ export const envConfig = {
   DB_CONNECTION: getEnv("DB_CONNECTION"),
 
   JWT_SECRET: getEnv("JWT_SECRET"),
-
-  JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN || "7d",
+ 
+  
 } as const;
