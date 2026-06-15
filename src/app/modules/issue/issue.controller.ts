@@ -77,10 +77,40 @@ const getSingleIssue = async (req: Request, res: Response) => {
     }
 };
 
+const updateIssue = async (
+    req: Request,
+    res: Response
+) => {
+    try {
+        const issueId = Number(req.params.id);
 
+        const result = await issueService.updateIssue(
+            issueId,
+            req.body
+        );
+
+        return sendResponse(
+            res,
+            200,
+            "Issue updated successfully",
+            result
+        );
+
+    } catch (error) {
+        return sendError(
+            res,
+            500,
+            error instanceof Error
+                ? error.message
+                : "Something went wrong",
+            error
+        );
+    }
+};
 
 export const issueController = {
     issueCreated,
     getAllIssues,
-    getSingleIssue
+    getSingleIssue,
+    updateIssue
 }

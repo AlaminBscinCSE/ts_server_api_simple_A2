@@ -1,5 +1,5 @@
 import { pool } from "../../db/db.js";
-import type { Issue } from "./issue.interface.js"
+import type { Issue, IssueUpdate } from "./issue.interface.js"
 
 
 const issueCreated = async (
@@ -144,8 +144,42 @@ const getSingleIssue = async (id: number) => {
     };
 };
 
+const updateIssue = async (issueId: number, payload: IssueUpdate) => {
+    const {
+        title,
+        description,
+        type
+    } = payload;
+
+    const result = await pool.query(
+        `
+        UPDATE issues
+        SET
+            title = COALESCE($1, title),
+            description = COALESCE($2, description),
+            type = COALESCE($3, type),
+            updated_at = CURRENT_TIMESTAMP
+        WHERE id = $4
+        RETURNING *
+        `,
+        [
+            title,
+            description,
+            type,
+            issueId
+        ]
+    );
+
+    if (result.rows.length === 0) {
+        throw new Error("Issue not found");
+    }
+
+    return result.rows[0];
+};
+
 export const issueService = {
     issueCreated,
     getAllIssues,
-    getSingleIssue
+    getSingleIssue,
+    updateIssue
 }

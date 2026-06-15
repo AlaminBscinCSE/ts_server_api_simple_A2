@@ -6,3 +6,8 @@ export interface Issue {
     status?: "open" | "in_progress" | "resolved";
     reporter_id?: number;
 }
+export interface IssueUpdate {
+    title?: string;
+    description?: string;
+    type?: string;
+} 
