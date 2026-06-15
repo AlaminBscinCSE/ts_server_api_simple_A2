@@ -107,10 +107,35 @@ const updateIssue = async (
         );
     }
 };
+const deleteIssue = async (
+    req: Request,
+    res: Response
+) => {
+    try {
+        const issueId = Number(req.params.id);
 
+        await issueService.deleteIssue(issueId);
+
+        return res.status(200).json({
+            success: true,
+            message: "Issue deleted successfully"
+        });
+
+    } catch (error) {
+        return sendError(
+            res,
+            500,
+            error instanceof Error
+                ? error.message
+                : "Something went wrong",
+            error
+        );
+    }
+};
 export const issueController = {
     issueCreated,
     getAllIssues,
     getSingleIssue,
-    updateIssue
+    updateIssue,
+    deleteIssue
 }

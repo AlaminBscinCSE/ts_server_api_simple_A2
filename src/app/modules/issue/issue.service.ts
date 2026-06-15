@@ -177,9 +177,32 @@ const updateIssue = async (issueId: number, payload: IssueUpdate) => {
     return result.rows[0];
 };
 
+const deleteIssue = async (
+    issueId: number
+) => {
+
+    const result = await pool.query(
+        `
+        DELETE FROM issues
+        WHERE id = $1
+        RETURNING *
+        `,
+        [issueId]
+    );
+
+    if (result.rows.length === 0) {
+        throw new Error("Issue not found");
+    }
+
+    return null;
+};
+
+
+
 export const issueService = {
     issueCreated,
     getAllIssues,
     getSingleIssue,
-    updateIssue
+    updateIssue,
+    deleteIssue
 }
