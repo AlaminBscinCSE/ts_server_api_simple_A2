@@ -6,7 +6,7 @@ import { getEnv } from "../utils/helper.js";
 dotenv.config();
 
 export const envConfig = {
-  PORT: Number(process.env.PORT) || 3000,
+  PORT: Number(process.env.PORT) || 5000,
 
   DB_CONNECTION: getEnv("DB_CONNECTION"),
 
