@@ -26,11 +26,61 @@ const issueCreated = async (req: Request, res: Response) => {
         )
     }
 }
+const getAllIssues = async (
+    req: Request,
+    res: Response
+) => {
+    try {
+        const result = await issueService.getAllIssues(
+            req.query
+        );
 
+        return sendResponse(
+            res,
+            200,
+            "Issues retrieved successfully",
+            result
+        );
+    } catch (error) {
+        return sendError(
+            res,
+            500,
+            error instanceof Error
+                ? error.message
+                : "Something went wrong",
+            error
+        );
+    }
+};
 
+const getSingleIssue = async (req: Request, res: Response) => {
+    try {
+        const id = Number(req.params.id);
+
+        const result = await issueService.getSingleIssue(id);
+
+        return sendResponse(
+            res,
+            200,
+            "Issue retrieved successfully",
+            result
+        );
+    } catch (error) {
+        return sendError(
+            res,
+            500,
+            error instanceof Error
+                ? error.message
+                : "Something went wrong",
+            error
+        );
+    }
+};
 
 
 
 export const issueController = {
-    issueCreated
+    issueCreated,
+    getAllIssues,
+    getSingleIssue
 }
