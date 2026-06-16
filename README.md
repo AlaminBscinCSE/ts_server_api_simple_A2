@@ -5,7 +5,7 @@ A RESTful Issue Tracking System built with Express.js, TypeScript, PostgreSQL, a
 ## Live URL
 
 ```
-https://your-live-url.com
+[https://your-live-url.com](https://ts-server-api-simple-a2.vercel.app/)
 ```
 
 ## Features
